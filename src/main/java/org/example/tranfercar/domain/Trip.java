@@ -32,7 +32,7 @@ public class Trip {
     private int availableSeats;
 
     @ManyToOne
-    private User driver;
+    private DriverAccount driver;
 
     @ManyToOne
     private Vehicle vehicle;

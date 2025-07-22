@@ -1,5 +1,6 @@
 package org.example.tranfercar.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -19,33 +20,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(nullable = false)
     private String name;
-
     @Column(unique = true, nullable = false)
     private String email;
-
     private String phone;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;  // one user can have passenger or driver role
-
-    @OneToMany(mappedBy = "driver")
-    private List<Trip> tripsAsDriver;
-
-    @OneToMany(mappedBy = "passenger")
-    private List<Booking> bookings;
-
-    @OneToMany(mappedBy = "author")
-    private List<Review> writtenReviews;
-
-    @OneToMany(mappedBy = "target")
-    private List<Review> receivedReviews;
-
-    public enum Role {
-        DRIVER,
-        PASSENGER
-    }
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Account> accounts;
 }
